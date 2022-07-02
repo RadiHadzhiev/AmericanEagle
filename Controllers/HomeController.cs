@@ -34,10 +34,10 @@ public class HomeController : Controller
         return View(viewModel);
     }
 
-    [HttpPost]
-    public IActionResult Export(string TableData)
+    public void Export(string fileName)
     {
-        return File(System.Text.Encoding.ASCII.GetBytes(TableData), "application/vnd.ms-excel", "asteroids.xls");
+
+
     }
     public IActionResult Privacy()
     {
