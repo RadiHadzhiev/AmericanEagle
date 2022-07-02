@@ -1,0 +1,24 @@
+@model Apod;
+
+@{
+    ViewData["Title"] = "Astronomy Picture Of The Day";
+}
+
+<div class="d-grid">
+    <div class="row">
+
+        <h1>Image Description</h1>
+        <p>@Model.Explanation</p><br />
+        <p>Date: @Model.Date</p><br />
+        <p>Copyright: @Model.Copyright</p><br />
+        <a href="@Model.Hdurl" download="apod">
+            <input type="button" value="Download Image">
+        </a>
+
+    </div>
+
+    <div class="row">
+        <img src="@Model.Hdurl">
+    </div>
+
+</div>
