@@ -1,19 +1,47 @@
 @model Apod;
 
+<head>
+    <script src="~/js/downloadFiles.js" type="text/javascript"></script>
+    <style>
+        .submitBtn {
+            display: block;
+            width: 15%;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #212529;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border-radius: 0.25rem;
+            border-color: aqua;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+    </style>
+
+</head>
 @{
+
     ViewData["Title"] = "Astronomy Picture Of The Day";
 }
 
-<div class="d-grid">
+<div class="d-grid gap-1">
     <div class="row">
 
         <h1>Image Description</h1>
         <p>@Model.Explanation</p><br />
         <p>Date: @Model.Date</p><br />
         <p>Copyright: @Model.Copyright</p><br />
-        <a href="@Model.Hdurl" download="apod">
-            <input type="button" value="Download Image">
-        </a>
+        <form>
+            <button class="submitBtn" asp-action="DownloadImage">
+                <img src="/Icons/download-circular-button.png" width=30 height=30 />Download Image
+            </button>
+            <input id="submit" type="hidden" asp-for="Hdurl">
+        </form>
+
 
     </div>
 

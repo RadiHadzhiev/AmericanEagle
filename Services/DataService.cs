@@ -59,7 +59,8 @@ namespace Asteroids.Services
                 }
                 else
                 {
-                    throw new ApplicationException("could not get asteroid data");
+                    var responce = await result.Content.ReadAsStringAsync();
+                    throw new ApplicationException(responce);
                 }
             }
 
@@ -84,7 +85,8 @@ namespace Asteroids.Services
                 }
                 else
                 {
-                    throw new ApplicationException("could not get picture data");
+                    var responce = await result.Content.ReadAsStringAsync();
+                    throw new ApplicationException(responce);
                 }
             }
 

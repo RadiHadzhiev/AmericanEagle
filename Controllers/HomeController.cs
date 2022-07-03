@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Asteroids.Models;
 using Asteroids.Services;
 using System.Globalization;
+using Newtonsoft.Json;
 
 namespace Asteroids.Controllers;
 
@@ -24,14 +25,22 @@ public class HomeController : Controller
         DateTime startDate = Convert.ToDateTime(dateForm["startDate"], CultureInfo.InvariantCulture);
         DateTime endDate = Convert.ToDateTime(dateForm["endDate"], CultureInfo.InvariantCulture);
 
-        Neo viewModel = await this.dataService.GetDataInRange(startDate, endDate);
-
-        if (viewModel == null)
+        try
         {
-            return RedirectToAction("Error");
+            Neo viewModel = await this.dataService.GetDataInRange(startDate, endDate);
+            if (viewModel == null)
+            {
+                return RedirectToAction("Error");
+            }
+
+            return View(viewModel);
+        }
+        catch (ApplicationException e)
+        {
+            return RedirectToAction("Error", new { message = e.Message });
         }
 
-        return View(viewModel);
+
     }
 
     public void Export(string fileName)
@@ -45,8 +54,10 @@ public class HomeController : Controller
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
+    public IActionResult Error(string message)
     {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        ErrorViewModel error = JsonConvert.DeserializeObject<ErrorViewModel>(message);
+
+        return View(error);
     }
 }

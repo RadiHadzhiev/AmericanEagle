@@ -2,10 +2,33 @@
 
 <head>
     <script src="~/js/form_validation.js" type="text/javascript"></script>
-    <script src="~/js/export_to_excel.js" type="text/javascript"></script>
-    <script src="~/js/lib/jquery/dist/jquery.min.js" type="text/javascript"></script>
+    <script src="~/js/downloadFiles.js" type="text/javascript"></script>
+    <script type="text/javascript"
+        src="https://github.com/linways/table-to-excel/tree/master/dist/tableToExcel.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
 
-
+    <style>
+        .downloadBtn {
+            display: block;
+            width: 15%;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #212529;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border-radius: 0.25rem;
+            border-color: green;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+    </style>
+    </style>
 </head>
 
 @{
@@ -18,25 +41,23 @@
 
         <div class="col-md-5 align-self-end">
 
-            <form class="form-control " name="dateForm" asp-action="Index" onsubmit="validate_input()">
+            <form id="dateForm" name="dateForm" asp-action="Index">
 
-                <div class="row">
-                    <label class="col-sm-4 col-form-label-sm">Start Date</label>
-                    <label class="col-sm-4 col-form-label-sm">End Date</label>
-                </div>
-
-                <div class="row">
+                <div class="row flex-fill">
 
                     <div class="col-sm-4">
-                        <input type="date" name="startDate" value=@Model.DataStart />
+                        <label>Start Date</label><br />
+                        <input id="startDatetbl" class="form-control" type="date" name="startDate"
+                            value=@Model.DataStart />
                     </div>
 
                     <div class="col-sm-4">
-                        <input type="date" name="endDate" value=@Model.DataEnd />
+                        <label>End Date</label><br />
+                        <input id="endDatetbl" class="form-control" type="date" name="endDate" value=@Model.DataEnd />
                     </div>
 
-                    <div class="col-sm-4">
-                        <input type="submit" value="Get data" />
+                    <div class="col-sm-3 align-self-end">
+                        <input class="form-control" type="submit" value="Get data" />
                     </div>
 
                 </div>
@@ -45,17 +66,17 @@
 
         </div>
 
-        <div class="col-md-5">
+        <div class="col-sm-4">
 
             <h1 class="display-4">Welcome</h1>
             <p> Observed objects in range: @Model.ElementsCount</p>
 
         </div>
 
-        <div class="col-md-5">
+        <div class="col-sm-2 align-self-end">
 
-            <button id="downloadTable" onclick="exportToExcel()">
-                Download Data
+            <button class="downloadBtn" id="downloadTable" onclick="downloadTbl()">
+                <image src="/Icons/sheets.png" width=30 height=30> Download Data
             </button>
 
         </div>
@@ -93,3 +114,16 @@
 
 
 </div>
+<footer>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#tbl').DataTable();
+        });
+    </script>
+
+    <script type="text/javascript">
+        function downloadTbl() {
+            TableToExcel.convert(document.getElementById("tbl"));
+        }
+    </script>
+</footer>
