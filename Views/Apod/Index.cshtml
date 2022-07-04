@@ -1,11 +1,12 @@
 @model Apod;
 
 <head>
-    <script src="~/js/downloadFiles.js" type="text/javascript"></script>
+    
+    <script src="~/js/form_validation.js" type="text/javascript"></script>
+
     <style>
         .submitBtn {
             display: block;
-            width: 15%;
             font-size: 1rem;
             font-weight: 400;
             line-height: 1.5;
@@ -17,7 +18,7 @@
             -moz-appearance: none;
             appearance: none;
             border-radius: 0.25rem;
-            border-color: aqua;
+            border-color: purple;
             transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
         }
     </style>
@@ -29,24 +30,50 @@
 }
 
 <div class="d-grid gap-1">
-    <div class="row">
+    <div class="row border-info">
 
         <h1>Image Description</h1>
         <p>@Model.Explanation</p><br />
         <p>Date: @Model.Date</p><br />
         <p>Copyright: @Model.Copyright</p><br />
-        <form>
-            <button class="submitBtn" asp-action="DownloadImage">
-                <img src="/Icons/download-circular-button.png" width=30 height=30 />Download Image
-            </button>
-            <input id="submit" type="hidden" asp-for="Hdurl">
-        </form>
+
+    </div>
 
 
+    <div class="row">
+
+        <div class="col-sm-5">
+            <form>
+                <button class="submitBtn" asp-action="DownloadImage">
+                    <img src="/Icons/download-circular-button.png" width=30 height=30 />    Download Image
+                </button>
+                <input id="submit" type="hidden" asp-for="Hdurl">
+            </form>
+        </div>
+
+        <div class="col-sm-5">
+            <form id="pictureDate" asp-action="Index">
+                <div class="row">
+
+                    <div class="col-sm-5">
+                        <input  id="dateInput" class="form-control" type="date" value="@Model.Date" asp-for="Date">
+                    </div>
+
+                    <div class="col-sm-4">
+                        <input class="form-control border-primary" type="submit" value="Get Image">
+                    </div>
+
+                </div>
+            </form>
+        </div>
     </div>
 
     <div class="row">
-        <img src="@Model.Hdurl">
+        <img src="@Model.Url">
     </div>
 
 </div>
+<script type="text/javascript">
+
+
+</script>

@@ -1,4 +1,6 @@
 using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
+
 namespace Asteroids.Models
 {
     public class Apod
@@ -8,6 +10,7 @@ namespace Asteroids.Models
         public string Copyright { get; set; }
 
         [JsonProperty("date")]
+
         public string Date { get; set; }
 
         [JsonProperty("explanation")]
@@ -27,5 +30,9 @@ namespace Asteroids.Models
 
         [JsonProperty("url")]
         public string Url { get; set; }
+    }
+    public class Picture
+    {
+        public List<Apod> Pcs { get; set; }
     }
 }

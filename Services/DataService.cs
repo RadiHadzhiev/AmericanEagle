@@ -68,8 +68,16 @@ namespace Asteroids.Services
 
         }
 
-        public async Task<Apod> GetImageOfTheDay()
+        public async Task<Apod> GetImageOfTheDay(string date)
         {
+            if (string.IsNullOrEmpty(date))
+            {
+                date = DateTime.Today.ToString(dateFormat);
+            }
+
+            queryParameters.Add("start_date", date);
+            queryParameters.Add("end_date", date);
+
             using (var client = new HttpClient())
             {
                 var uri = QueryHelpers.AddQueryString(apodAddress, queryParameters);
@@ -78,10 +86,11 @@ namespace Asteroids.Services
 
                 if (result.IsSuccessStatusCode)
                 {
-                    var responce = await result.Content.ReadAsStringAsync();
-                    Apod? apodData = JsonConvert.DeserializeObject<Apod>(responce);
 
-                    return apodData;
+                    var responce = await result.Content.ReadAsStringAsync();
+                    Apod[] pictureData = JsonConvert.DeserializeObject<Apod[]>(responce);
+
+                    return pictureData[0];
                 }
                 else
                 {

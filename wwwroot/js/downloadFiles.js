@@ -29,6 +29,7 @@ function exportToExcel() {
     }
 }
 
+//this can be used when te request is not cross domain
 async function downloadImage(imageSrc) {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", imageSrc, true);

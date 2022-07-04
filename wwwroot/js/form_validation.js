@@ -1,6 +1,17 @@
 
 window.onload = function () {
-    document.getElementById("dateForm").addEventListener('submit', validate_input);
+
+    let dateForm = document.getElementById("dateForm");
+    let pictureDate = document.getElementById("pictureDate");
+
+    if (dateForm != null) {
+        dateForm.addEventListener('submit', validate_input);
+    }
+    if (pictureDate != null) {
+        pictureDate.addEventListener("submit", check_date);
+    }
+    
+
 }
 
 function validate_input(e) {
@@ -25,4 +36,20 @@ function validate_input(e) {
     }
 
     return true;
+}
+
+
+function check_date(e) {
+
+    let selectedDate = new Date(document.getElementById("dateInput").value);
+    let today = new Date();
+
+    if (selectedDate > today) {
+        alert("I don't know what the future holds");
+        e.preventDefault();
+        return false;
+    }
+
+    return true;
+
 }

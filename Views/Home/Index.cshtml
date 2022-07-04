@@ -3,32 +3,9 @@
 <head>
     <script src="~/js/form_validation.js" type="text/javascript"></script>
     <script src="~/js/downloadFiles.js" type="text/javascript"></script>
-    <script type="text/javascript"
-        src="https://github.com/linways/table-to-excel/tree/master/dist/tableToExcel.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
-    <script type="text/javascript" charset="utf8"
-        src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js" type="text/javascript"></script>
 
-    <style>
-        .downloadBtn {
-            display: block;
-            width: 15%;
-            font-size: 1rem;
-            font-weight: 400;
-            line-height: 1.5;
-            color: #212529;
-            background-color: #fff;
-            background-clip: padding-box;
-            border: 1px solid #ced4da;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            border-radius: 0.25rem;
-            border-color: green;
-            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-        }
-    </style>
-    </style>
+
 </head>
 
 @{
@@ -48,7 +25,7 @@
                     <div class="col-sm-4">
                         <label>Start Date</label><br />
                         <input id="startDatetbl" class="form-control" type="date" name="startDate"
-                            value=@Model.DataStart />
+                               value=@Model.DataStart />
                     </div>
 
                     <div class="col-sm-4">
@@ -75,15 +52,18 @@
 
         <div class="col-sm-2 align-self-end">
 
-            <button class="downloadBtn" id="downloadTable" onclick="downloadTbl()">
-                <image src="/Icons/sheets.png" width=30 height=30> Download Data
-            </button>
+            <form name="tblForm">
+                <button class="downloadBtn" id="downloadTable" onclick="exportToExcel()">
+                    <image src="/Icons/sheets.png" width=30 height=30> Download Data
+                </button>
+                <input type="hidden" name="htmlTbl" />
+            </form>
 
         </div>
 
     </div>
 
-    <div class="row">
+    <div id="tblGrid"  class="row">
         <table id="tbl" class="table table-bordered">
             <tr>
                 <th>Date</th>
@@ -114,16 +94,27 @@
 
 
 </div>
-<footer>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#tbl').DataTable();
-        });
-    </script>
 
-    <script type="text/javascript">
-        function downloadTbl() {
-            TableToExcel.convert(document.getElementById("tbl"));
+<footer>
+
+
+    <style>
+        .downloadBtn {
+            display: block;
+            width: 100%;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #212529;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border-radius: 0.25rem;
+            border-color: green;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
         }
-    </script>
+    </style>
 </footer>

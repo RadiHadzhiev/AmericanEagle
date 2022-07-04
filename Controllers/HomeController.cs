@@ -4,6 +4,7 @@ using Asteroids.Models;
 using Asteroids.Services;
 using System.Globalization;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace Asteroids.Controllers;
 
@@ -20,7 +21,6 @@ public class HomeController : Controller
 
     public async Task<IActionResult> Index(IFormCollection dateForm)
     {
-        string dateFormat = "yyy-MM-dd";
 
         DateTime startDate = Convert.ToDateTime(dateForm["startDate"], CultureInfo.InvariantCulture);
         DateTime endDate = Convert.ToDateTime(dateForm["endDate"], CultureInfo.InvariantCulture);
@@ -43,11 +43,6 @@ public class HomeController : Controller
 
     }
 
-    public void Export(string fileName)
-    {
-
-
-    }
     public IActionResult Privacy()
     {
         return View();
